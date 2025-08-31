@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCPdirect - MCP通用访问网关</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #2563eb;
@@ -14,6 +15,11 @@
             --dark: #1e293b;
             --gray: #64748b;
             --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --team: #3b82f6;
+            --community: #10b981;
+            --business: #8b5cf6;
         }
         
         * {
@@ -40,23 +46,39 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
         
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            position: relative;
         }
         
         header p {
             font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
         }
         
         .hero {
             background-color: white;
             padding: 3rem 0;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .hero-content {
@@ -85,6 +107,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         .btn {
@@ -95,13 +118,16 @@
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             border: none;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
             background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
         .btn-secondary {
@@ -121,6 +147,20 @@
             text-align: center;
             margin-bottom: 3rem;
             color: var(--dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
         
         .features-grid {
@@ -134,11 +174,24 @@
             border-radius: 10px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
         
         .feature-icon {
@@ -164,16 +217,18 @@
         
         .challenge-item {
             margin-bottom: 1.5rem;
-            padding-left: 2rem;
+            padding-left: 2.5rem;
             position: relative;
         }
         
-        .challenge-item:before {
+        .challenge-item::before {
             content: "•";
             color: var(--primary);
             font-weight: bold;
+            font-size: 1.5rem;
             position: absolute;
-            left: 0;
+            left: 1rem;
+            top: -0.2rem;
         }
         
         .innovation {
@@ -192,11 +247,95 @@
             border-radius: 10px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .innovation-card:hover {
+            transform: translateY(-3px);
         }
         
         .innovation-card h3 {
             color: var(--success);
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .innovation-card h3 i {
+            margin-right: 0.5rem;
+        }
+        
+        .versions {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .version-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .version-card {
+            background: linear-gradient(135deg, var(--light), white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border-top: 5px solid var(--team);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .version-card.community {
+            border-top-color: var(--community);
+        }
+        
+        .version-card.business {
+            border-top-color: var(--business);
+        }
+        
+        .version-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .version-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .version-card .price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+        
+        .version-card .price .free {
+            color: var(--success);
+        }
+        
+        .version-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+        
+        .version-card ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .version-card ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .version-card ul li i {
+            margin-right: 0.5rem;
+            color: var(--success);
         }
         
         .cta {
@@ -204,10 +343,24 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 C50,50 50,50 100,0 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
         
         .cta h2 {
             margin-bottom: 2rem;
+            position: relative;
         }
         
         footer {
@@ -226,8 +379,17 @@
                 font-size: 1.5rem;
             }
             
-            .features-grid, .innovation-grid {
+            .features-grid, .innovation-grid, .version-cards {
                 grid-template-columns: 1fr;
+            }
+            
+            .url-display {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .url-display .btn {
+                margin-top: 1rem;
             }
         }
     </style>
@@ -246,11 +408,11 @@
             <p>MCPdirect提供统一的MCP Server访问解决方案，让您轻松管理和使用所有MCP工具。</p>
             
             <div class="url-display">
-                <span>https://connect.mcpdirect.ai/your-access-key/sse</span>
+                <span>https://connect.mcpdirect.com/your-access-key/sse</span>
                 <button class="btn">复制URL</button>
             </div>
             
-            <a href="#demo" class="btn btn-secondary">立即体验</a>
+            <a href="#versions" class="btn btn-secondary">查看版本</a>
         </div>
     </section>
     
@@ -273,31 +435,31 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
+                    <div class="feature-icon"><i class="fas fa-link"></i></div>
                     <h3>URL复用</h3>
                     <p>一个URL覆盖所有MCP Server，简化访问流程，提高使用效率。</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🔑</div>
+                    <div class="feature-icon"><i class="fas fa-key"></i></div>
                     <h3>可授权的Key</h3>
                     <p>为不同的用户场景创建不同的Key，不同Key访问不同MCP Server。</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
                     <h3>原子化工具访问权限</h3>
                     <p>每个MCP Server的工具可以单独设置的访问权限，确保安全使用。</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
                     <h3>虚拟MCP Server</h3>
                     <p>重组已有MCP Server的Tools，创建新的虚拟MCP Server，无需改动原始配置。</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
+                    <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
                     <h3>MCP内网穿透技术</h3>
                     <p>允许MCP Server部署在私有环境，任何授权的MCP Client都可以透明访问。</p>
                 </div>
@@ -311,34 +473,80 @@
             
             <div class="innovation-grid">
                 <div class="innovation-card">
-                    <h3>URL复用</h3>
+                    <h3><i class="fas fa-link"></i> URL复用</h3>
                     <p>通过智能路由技术，实现单一URL访问多个MCP Server，大幅简化客户端配置。</p>
                 </div>
                 
                 <div class="innovation-card">
-                    <h3>可授权的Key</h3>
+                    <h3><i class="fas fa-key"></i> 可授权的Key</h3>
                     <p>基于角色的密钥管理系统，为不同用户和应用场景提供精细化的访问控制。</p>
                 </div>
                 
                 <div class="innovation-card">
-                    <h3>原子化工具访问权限</h3>
+                    <h3><i class="fas fa-lock"></i> 原子化工具访问权限</h3>
                     <p>细粒度权限控制系统，允许管理员为每个工具设置独立的访问策略。</p>
                 </div>
                 
                 <div class="innovation-card">
-                    <h3>虚拟MCP Server</h3>
+                    <h3><i class="fas fa-server"></i> 虚拟MCP Server</h3>
                     <p>工具组合与抽象层技术，无需修改原有服务即可创建定制化的虚拟MCP Server。</p>
                 </div>
                 
                 <div class="innovation-card">
-                    <h3>MCP内网穿透技术</h3>
+                    <h3><i class="fas fa-network-wired"></i> MCP内网穿透技术</h3>
                     <p>安全隧道技术实现私有网络MCP服务的全球化访问，同时保证数据传输安全。</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="cta" id="demo">
+    <section class="versions" id="versions">
+        <div class="container">
+            <h2 class="section-title">版本选择</h2>
+            
+            <div class="version-cards">
+                <div class="version-card">
+                    <h3>Team Edition</h3>
+                    <p>适合个人及团队</p>
+                    <div class="price"><span class="free">免费</span></div>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> 支持团队协作</li>
+                        <li><i class="fas fa-check-circle"></i> 本地运行</li>
+                        <li><i class="fas fa-check-circle"></i> 可升级到Business Edition</li>
+                    </ul>
+                    <a href="#" class="btn">开始使用</a>
+                </div>
+                
+                <div class="version-card community">
+                    <h3>Community Edition</h3>
+                    <p>适合企业</p>
+                    <div class="price"><span class="free">免费</span></div>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> 支持多用户</li>
+                        <li><i class="fas fa-check-circle"></i> 高级权限管理</li>
+                        <li><i class="fas fa-check-circle"></i> 需要自行部署</li>
+                        <li><i class="fas fa-check-circle"></i> 社区技术支持</li>
+                    </ul>
+                    <a href="#" class="btn">联系销售</a>
+                </div>
+                
+                <div class="version-card business">
+                    <h3>Business Edition</h3>
+                    <p>适合所有人</p>
+                    <div class="price">$$<span>/月</span></div>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> 支持多用户</li>
+                        <li><i class="fas fa-check-circle"></i> 高级权限管理</li>
+                        <li><i class="fas fa-check-circle"></i> 支持团队协作</li>
+                        <li><i class="fas fa-check-circle"></i> 24*7技术支持</li>
+                    </ul>
+                    <a href="#" class="btn">订阅</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
         <div class="container">
             <h2>开始使用MCPdirect</h2>
             <p>立即注册，体验无缝的MCP Server管理</p>
