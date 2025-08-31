@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCPdirect - MCP通用访问网关</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #4f46e5;
+            --accent: #8b5cf6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            background-color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .url-display {
+            background-color: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: monospace;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4338ca;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        
+        .challenges {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .challenge-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .challenge-item {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .challenge-item:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .innovation {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .innovation-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .innovation-card h3 {
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        .cta {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .features-grid, .innovation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MCPdirect</h1>
+            <p>一个URL，一个授权的Key，按需访问你的所有Tools</p>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>开源MCP通用访问网关，解决Agent工具孤岛困境</h2>
+            <p>MCPdirect提供统一的MCP Server访问解决方案，让您轻松管理和使用所有MCP工具。</p>
+            
+            <div class="url-display">
+                <span>https://connect.mcpdirect.ai/your-access-key/sse</span>
+                <button class="btn">复制URL</button>
+            </div>
+            
+            <a href="#demo" class="btn btn-secondary">立即体验</a>
+        </div>
+    </section>
+    
+    <section class="challenges">
+        <div class="container">
+            <h2 class="section-title">MCP应用面临的挑战</h2>
+            
+            <div class="challenge-list">
+                <div class="challenge-item">如何无缝整合企业、家庭、移动局域网内MCP Server并全球使用</div>
+                <div class="challenge-item">如何快速发布MCP Server的工具并投入使用</div>
+                <div class="challenge-item">如何有效管理众多的MCP Server并灵活使用</div>
+                <div class="challenge-item">如何按需设置MCP Server及工具访问权限并安全使用</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">MCPdirect解决方案</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>URL复用</h3>
+                    <p>一个URL覆盖所有MCP Server，简化访问流程，提高使用效率。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>可授权的Key</h3>
+                    <p>为不同的用户场景创建不同的Key，不同Key访问不同MCP Server。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>原子化工具访问权限</h3>
+                    <p>每个MCP Server的工具可以单独设置的访问权限，确保安全使用。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>虚拟MCP Server</h3>
+                    <p>重组已有MCP Server的Tools，创建新的虚拟MCP Server，无需改动原始配置。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>MCP内网穿透技术</h3>
+                    <p>允许MCP Server部署在私有环境，任何授权的MCP Client都可以透明访问。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="innovation">
+        <div class="container">
+            <h2 class="section-title">技术创新</h2>
+            
+            <div class="innovation-grid">
+                <div class="innovation-card">
+                    <h3>URL复用</h3>
+                    <p>通过智能路由技术，实现单一URL访问多个MCP Server，大幅简化客户端配置。</p>
+                </div>
+                
+                <div class="innovation-card">
+                    <h3>可授权的Key</h3>
+                    <p>基于角色的密钥管理系统，为不同用户和应用场景提供精细化的访问控制。</p>
+                </div>
+                
+                <div class="innovation-card">
+                    <h3>原子化工具访问权限</h3>
+                    <p>细粒度权限控制系统，允许管理员为每个工具设置独立的访问策略。</p>
+                </div>
+                
+                <div class="innovation-card">
+                    <h3>虚拟MCP Server</h3>
+                    <p>工具组合与抽象层技术，无需修改原有服务即可创建定制化的虚拟MCP Server。</p>
+                </div>
+                
+                <div class="innovation-card">
+                    <h3>MCP内网穿透技术</h3>
+                    <p>安全隧道技术实现私有网络MCP服务的全球化访问，同时保证数据传输安全。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta" id="demo">
+        <div class="container">
+            <h2>开始使用MCPdirect</h2>
+            <p>立即注册，体验无缝的MCP Server管理</p>
+            <a href="#" class="btn">免费试用</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 MCPdirect - MCP通用访问网关解决方案</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的复制功能示例
+        document.querySelector('.url-display .btn').addEventListener('click', function() {
+            const url = document.querySelector('.url-display span').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const originalText = this.textContent;
+                this.textContent = '已复制!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

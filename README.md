@@ -1,1 +1,0 @@
-# mcpdirect.github.io
